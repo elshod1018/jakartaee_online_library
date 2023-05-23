@@ -14,7 +14,7 @@ public abstract class DAO<T, ID> {
                     return DriverManager.getConnection(
                             "jdbc:postgresql://localhost:5432/jakartaee",
                             "postgres",
-                            "1234"
+                            "123"
                     );
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
