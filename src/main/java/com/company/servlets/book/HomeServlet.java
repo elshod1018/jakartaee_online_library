@@ -21,6 +21,7 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.err.println("HomeServlet.doGet");
         BookDAO bookDAO = BookDAO.getInstance();
         CategoryDAO categoryDAO = CategoryDAO.getInstance();
         request.setAttribute("books", bookDAO.findAll());

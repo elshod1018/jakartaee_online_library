@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-@WebFilter(filterName = "BookAddFilter", urlPatterns = "/book/add")
+//@WebFilter(filterName = "BookAddFilter", urlPatterns = "/book/add")
 public class BookAddFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -41,6 +41,7 @@ public class BookAddFilter implements Filter {
                     String publisher = req.getParameter("publisher");
 
                     String categoryId = req.getParameter("categoryId");
+                    System.err.printf("%s %s %s %s%n", categoryId,title,author,publisher);
                     Short categoryID = Short.valueOf(categoryId);
                     CategoryDAO categoryDAO = CategoryDAO.getInstance();
                     Category category = categoryDAO.findById(categoryID);
@@ -72,7 +73,7 @@ public class BookAddFilter implements Filter {
                     if (pages < 1) {
                         constraints.put("pages_error", "Pages can not be %d".formatted(pages));
                     }
-                    if (constraints.size() > 0) {
+                    if (!constraints.isEmpty()) {
                         List<Category> categories = categoryDAO.findAll();
                         req.setAttribute("categories", categories);
                         req.setAttribute("constraints", constraints);
@@ -95,109 +96,4 @@ public class BookAddFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         }
     }
-    /*public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-
-        if (req.getMethod().equalsIgnoreCase("post")) {
-            try {
-                String email = req.getParameter("email");
-                String password = req.getParameter("password");
-                UserDAO userDAO = UserDAO.getInstance();
-                User user = userDAO.get(email);
-                if (user.getPassword().equals(password)) {
-
-                    String publisher = req.getParameter("publisher");
-                    if (publisher == null || publisher.isBlank()) {
-                        request.setAttribute("publisher_error", "Publisher can not be null");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-                    String title = req.getParameter("title");
-
-                    if (title == null || title.isBlank()) {
-                        request.setAttribute("title_error", "Title can not be empty");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-                    String author = req.getParameter("author");
-                    if (author == null || author.isBlank()) {
-                        request.setAttribute("author_error", "Author can not be empty");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-                    String publishedAt1 = req.getParameter("publishedAt");
-                    LocalDate publishedAt = LocalDate.parse(publishedAt1);
-                    if (publishedAt == null) {
-                        request.setAttribute("published_error", "Published year can not be empty");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-                    String description = req.getParameter("description");
-                    if (description == null || description.isBlank()) {
-                        request.setAttribute("description_error", "Description can not be empty");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-                    String categoryId = req.getParameter("categoryId");
-                    Short categoryID = Short.valueOf(categoryId);
-                    CategoryDAO categoryDAO = CategoryDAO.getInstance();
-                    Category category = categoryDAO.findById(categoryID);
-                    if (Objects.isNull(category)) {
-                        request.setAttribute("category_error", "Category must be chosen");
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-                    int pages = Integer.parseInt(req.getParameter("pages"));
-                    if (pages < 1) {
-                        request.setAttribute("page_error", "Pages can not be %d".formatted(pages));
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-                        dispatcher.forward(req, res);
-                    } else {
-                        chain.doFilter(req, res);
-                    }
-
-//                    Part image = req.getPart("image");
-//                    Part file = req.getPart("file");
-//                    if (file == null) {
-//                        request.setAttribute("description_error", "Description can not be empty");
-//                        RequestDispatcher dispatcher = req.getRequestDispatcher("/book/create.jsp");
-//                        dispatcher.forward(req, res);
-//                    } else {
-//                        chain.doFilter(req, res);
-//                    }
-
-
-                } else {
-                    request.setAttribute("credentials", "Permission denied");
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/book/check/check.jsp");
-                    dispatcher.forward(req, res);
-                }
-            } catch (RuntimeException e) {
-                request.setAttribute("credentials", "" + e.getMessage());
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/book/check/check.jsp");
-                dispatcher.forward(req, res);
-            }
-        } else {
-            chain.doFilter(request, response);
-        }
-
-    }*/
 }

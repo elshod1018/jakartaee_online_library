@@ -19,7 +19,7 @@ public class BookDAO extends DAO<Book, Integer> {
 
     private static final String SELECT_ALL = """
             select b.id, b.title, b.author,b.description, b.views,b.likes, b.dislikes, b.downloads,b.pages,b.publisher,
-             d.originalFileName as coverOriginalFileName ,d.generatedFileName as coverGeneratedFileName,d.fileSize as coverFileSize, 
+             d.originalFileName as coverOriginalFileName ,d.generatedFileName as coverGeneratedFileName,d.fileSize as coverFileSize,
              d2.originalFileName as documentOriginalFileName ,d2.generatedFileName as documentGeneratedFileName,d2.fileSize as documentFileSize,
              c.name as category from library.books b 
              inner join library.documents d on b.coverId = d.id 
@@ -28,7 +28,7 @@ public class BookDAO extends DAO<Book, Integer> {
              where b.isDeleted = 0;""";
     private static final String SELECT_BY_ID = """
             select b.id, b.title, b.author,b.description, b.views,b.likes, b.dislikes, b.downloads,b.pages,b.publisher,
-             d.originalFileName as coverOriginalFileName ,d.generatedFileName as coverGeneratedFileName,d.fileSize as coverFileSize, 
+             d.originalFileName as coverOriginalFileName ,d.generatedFileName as coverGeneratedFileName,d.fileSize as coverFileSize,
              d2.originalFileName as documentOriginalFileName ,d2.generatedFileName as documentGeneratedFileName,d2.fileSize as documentFileSize,
              c.name as category from library.books b 
              inner join library.documents d on b.coverId = d.id 

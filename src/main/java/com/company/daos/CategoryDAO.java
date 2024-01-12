@@ -15,17 +15,17 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryDAO extends DAO<Category, Integer> {
     private static CategoryDAO instance;
-    private static final String FIND_BY_ID = "select * from library.categories t where t.isDeleted =0 and t.id = ?;";
+    private static final String FIND_BY_ID = "select * from library.categories t where t.isDeleted = 0 and t.id = ?;";
 
     @Override
     protected Category get(Integer integer) {
         return null;
     }
 
-    private static final String FIND_ALL_QUERY = "select * from library.categories where isDeleted = 0;";
+    private static final String FIND_ALL_QUERY = "select * from library.categories;";
     private static final String UPDATE_CATEGORY_QUERY = """
             update library.categories set name = ? where id = ?;""";
-    private static final String TOTAL_COUNT = "select count(0) from library.categories where isDeleted =0 ;";
+    private static final String TOTAL_COUNT = "select count(0) from library.categories c where c.isDeleted = 0 ;";
     private static final String INSERT_CATEGORY_QUERY = """
             insert into library.categories (name) values (?) returning id;""";
     private static final String DELETE_BY_ID_QUERY = "update from library.categories set isDeleted = 1 where id = ?;";
